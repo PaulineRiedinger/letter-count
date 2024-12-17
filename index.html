@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
+    <title>Compteur d'occurrences d'une lettre</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Compteur d'occurrences d'une lettre</h1>
+      <p>
+        Écrivez une phrase, choisissez une lettre, et découvrez combien de fois
+        elle apparaît dans votre phrase :
+      </p>
+
+      <!-- Ajouter champ pour entrer phrase -->
+      <label for="sentence">Phrase :</label>
+      <input type="text" id="sentence" placeholder="Entrez votre phrase ici" />
+
+      <!-- Ajouter champ pour entrer lettre -->
+      <label for="letter">Lettre :</label>
+      <input
+        type="text"
+        id="letter"
+        maxlength="1"
+        placeholder="Entrez votre lettre ici"
+      />
+
+      <!-- Ajouter bouton pour lancer calcul -->
+      <button onclick="letterCount()">Compter</button>
+
+      <!-- Afficher résultat -->
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function letterCount() {
+        // Récupérer phrase saisie par utilisateur
+        const str = document.getElementById("sentence").value;
+
+        // Récupérer lettre saisie par utilisateur
+        const letter = document.getElementById("letter").value;
+
+        // Initialiser compteur pour suivre nombre d'occurrences
+        let counter = 0;
+
+        // Vérif si utilisateur a entré 1 seule lettre valide
+        const letterValid = /^[a-zA-Z]$/; // -> règle pour n'accepter que les lettres
+        if (!letterValid.test(letter)) {
+          // Afficher message d'erreur si entrée pas valide
+          alert(
+            "Veuillez entrer une seule lettre alphabétique sans chiffre ni caractère spécial."
+          );
+          return;
+        }
+
+        // Convertir phrase + lettre en minuscule -> rendre insensible à la casse
+        const strLower = str.toLowerCase();
+        const letterLower = letter.toLowerCase();
+
+        // Parcourir chaque caractère de la phrase
+        for (let i = 0; i < strLower.length; i++) {
+          // Vérif si caractère actuel = lettre
+          if (strLower[i] === letterLower) {
+            counter++; // +1 au compteur si oui
+          }
+        }
+
+        // Afficher nombre d'occurrences dans zone de résultat
+        document.getElementById(
+          "result"
+        ).textContent = `La lettre "${letter}" apparaît ${counter} fois dans la phrase.`;
+      }
+    </script>
+  </body>
+</html>
